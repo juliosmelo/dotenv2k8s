@@ -1,14 +1,16 @@
 ## Why this?
-I'm assuming that you are using the declarative Kubernetes format for setup your workload.
+I'm assuming that you're using the declarative Kubernetes format for setup your workload.
 
-Well... I was working in a project with more than 40 .env (dotenv) files in multiple projects that implements [12factor](https://12factor.net/) methodology. However they were using clear text env vars with sensitive keys, tokens and data on the PODs spec to make the workloads run into a Kubernetes cluster. As we know it's not safe take look at https://kubernetes.io/docs/concepts/configuration/secret/#information-security-for-secrets 
+Well... I was working on a project with more than 40 .env (dotenv) files in multiple projects that implements the [12factor](https://12factor.net/) methodology. However they were using clear text env vars with sensitive keys, tokens and data on the PODs spec to make the workloads run into a Kubernetes cluster. 
+
+As we know (this is not safe.)[https://kubernetes.io/docs/concepts/configuration/secret/#information-security-for-secrets]
 
 So I decided to move all of that clear text env vars to Kubernetes [Secrets](https://kubernetes.io/docs/concepts/configuration/secret/#creating-a-secret). But wait... more than 40 .env (dotenv), such a bored task to do manually :neutral_face: . I hope this helps you as has helped me. 
 
 
 ## How it works
 
-Let's say that you have a .env (dotenv) file with this content that you want to create a Kubernetes Secret object. You must be familiar with Kubernetes Secrets to use this tool.
+Let's say that you have an .env (dotenv) file with this content that you want to create a Kubernetes Secret object.
 
 ```bash
 USERNAME=username
@@ -21,22 +23,27 @@ dotenv2k8s --path=/path/to/the/dotenv/.env
 
 Secret name: my-secret
 Kubernetes Namespace [default]: my-namespace
-
+```
+```bash
 You can also to do this to achieve the same result
 
 dotenv2k8s --path=/path/to/the/dotenv/.env --name=my-secret --namespace=my-namespace
 ```
 Where:
 
-path: is the absolute path to the .env (dotenv) file
+- path: is the absolute path to the .env (dotenv) file
 
-Secret name: is the name of the object
+- Secret name: is the name of the object
 
-Kubernetes Namespace [default]: is the namespace of where the secret will be available ( default is the k8s 'default' namespace) 
+- Kubernetes Namespace [default]: is the namespace of where the secret will be available ( default is the k8s 'default' namespace)
 
 You will ended up with a file named `secret-my-secret-my-namespace.yaml` with the content
 
-or use your mind and put this tool in a shell script that does it at once...
+Another suggestion is to put this tool in a shell script that does it at once, for instance:
+
+```
+
+```
 
 ```yaml
 YAML output
@@ -67,11 +74,8 @@ type: Opaque
 
 ```
 
-Now what all need to do is to create the object in the cluster and use on the PODs and paste the POD spec into the POD manifest.
+To conclude, create the object in the cluster, use it on the PODs and paste the POD spec into the POD manifest.
+
 ```bash
 kubectl apply -f secret-my-secret-my-namespace.yaml
 ```
-
-
-# PR and feedback are welcome. THANK YOU!! :wink:
-

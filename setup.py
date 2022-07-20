@@ -35,7 +35,7 @@ setup_options = dict(
     description='Command Line to export dotenv files to Kubernetes Secrets declarative manifests',
     long_description=read('README.md'),
     author='juliocsmelo@gmail.com',
-    url='https://github.com/sweet-secret',
+    url='https://github.com/juliosmelo/dotenv2k8s',
     scripts=['bin/dotenv2k8s',],
     packages=find_packages(exclude=['tests*']),
     install_requires=install_requires,
