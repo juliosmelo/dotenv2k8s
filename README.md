@@ -3,7 +3,7 @@ I'm assuming that you're using the declarative Kubernetes format for setup your 
 
 Well... I was working on a project with more than 40 .env (dotenv) files in multiple projects that implements the [12factor](https://12factor.net/) methodology. However they were using clear text env vars with sensitive keys, tokens and data on the PODs spec to make the workloads run into a Kubernetes cluster. 
 
-As we know (this is not safe.)[https://kubernetes.io/docs/concepts/configuration/secret/#information-security-for-secrets]
+As we know [this is not safe.](https://kubernetes.io/docs/concepts/configuration/secret/#information-security-for-secrets)
 
 So I decided to move all of that clear text env vars to Kubernetes [Secrets](https://kubernetes.io/docs/concepts/configuration/secret/#creating-a-secret). But wait... more than 40 .env (dotenv), such a bored task to do manually :neutral_face: . I hope this helps you as has helped me. 
 
