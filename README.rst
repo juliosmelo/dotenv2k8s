@@ -1,0 +1,1 @@
+Command Line to export dotenv files to Kubernetes Secrets declarative manifests
